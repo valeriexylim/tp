@@ -862,325 +862,332 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `SummonersBook` and the **Actor** is the `user`, unless specified
-otherwise)
+(For all use cases below, the **System** is the `SummonersBook` and the **Actor** is the `user`, unless specified otherwise)
 
 ---
 
-### Use case: Add a person
+**<u>Use case: UC1 - Add a person</u>**
 
-**MSS**
+**MSS:**
+1. User requests to add a person by providing the necessary details (name, rank, role, champion).
+2. SummonersBook validates the inputs.
+3. SummonersBook creates and stores the person entry.
+4. SummonersBook confirms that the person has been added.  
+   <br>
+   Use case ends.
 
-1. User requests to add a person by providing name, rank, role, and champion.
-2. SummonersBook creates the person entry and stores it.
-3. SummonersBook confirms that the person has been added.
-
-**Extensions**
-
-- 2a. Missing or invalid fields.
-    - 2a1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 2a. Missing or invalid fields.
+  * 2a1. SummonersBook shows an error message indicating the missing or invalid fields.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: View a person
+**<u>Use case: UC2 - View a person</u>**
 
-**MSS**
-
+**MSS:**
 1. User requests to view a person by specifying the index.
-2. SummonersBook displays the person’s details.
+2. SummonersBook displays the person’s details.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 2a. The given index is invalid.
-    - 2a1. SummonersBook shows an error message.
-    - Use case ends.
-
----
-
-### Use case: Delete a person
-
-**MSS**
-
-1. User requests to list people.
-2. SummonersBook shows a list of people.
-3. User requests to delete a specific person by index.
-4. SummonersBook deletes the person.
-
-**Extensions**
-
-- 2a. The list is empty.
-    - Use case ends.
-
-- 3a. The given index is invalid.
-    - 3a1. SummonersBook shows an error message.
-    - Use case resumes at step 2.
+**Extensions:**
+* 2a. The given index is invalid.
+  * 2a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Find people
+**<u>Use case: UC3 - Delete a person</u>**
 
-**MSS**
+**MSS:**
+1. User requests to delete a person identified by an index in the displayed list.
+2. SummonersBook deletes the specified person.  
+   <br>
+   Use case ends.
 
-1. User requests to find players by specifying one or more keywords in their names. (Note: The search is case-insensitive.)
-2. SummonersBook searches the player list and displays all players whose names contain at least one of the given keywords.
-
-**Extensions**
-
-- 2a. No players match any of the given keywords.
-  - 2a1. SummonersBook shows “No players found.
-- Use case ends.
-
----
-
-### Use case: Auto-group people (create teams)
-
-**MSS**
-
-1. User requests to group people into balanced teams.
-2. SummonersBook creates the teams automatically.
-3. SummonersBook shows the newly formed teams.
-
-**Extensions**
-
-- 2a. Insufficient number of people to form teams.
-    - 2a1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 1a. The command format is invalid (e.g., missing or non-numeric index).
+  * 1a1. SummonersBook shows an error message explaining the correct command format.  
+    <br>
+    Use case ends.
+* 1b. The list is empty.  
+  <br>
+  Use case ends.
+* 1c. The given index is invalid (out of range).
+  * 1c1. SummonersBook shows an error message.  
+    <br>
+    Use case resumes at Step 1.
 
 ---
 
-### Use case: Manually create a team
+**<u>Use case: UC4 - Find persons</u>**
 
-**MSS**
+**MSS:**
+1. User requests to find persons by specifying one or more keywords in their names (search is case-insensitive).
+2. SummonersBook searches the person list and displays all persons whose names contain at least one of the given keywords.  
+   <br>
+   Use case ends.
 
-1. User requests to list people.
-2. SummonersBook shows a list of people.
-3. User requests to create a team by specifying 5 player indices.
-4. SummonersBook creates the team with the specified players.
-5. SummonersBook confirms that the team has been created.
-
-**Extensions**
-
-- 3a. The user provides fewer or more than 5 indices.
-    - 3a1. SummonersBook shows an error message indicating exactly 5 indices are required.
-    - Use case ends.
-
-- 3b. The user provides duplicate indices.
-    - 3b1. SummonersBook shows an error message about duplicate indices.
-    - Use case ends.
-
-- 3c. One or more indices are invalid (out of range).
-    - 3c1. SummonersBook shows an error message.
-    - Use case ends.
-
-- 4a. One or more players are already in another team.
-    - 4a1. SummonersBook shows an error message indicating which player is already assigned.
-    - Use case ends.
-
-- 4b. The selected players have duplicate roles.
-    - 4b1. SummonersBook shows an error message about duplicate roles.
-    - Use case ends.
-
-- 4c. The selected players have duplicate champions.
-    - 4c1. SummonersBook shows an error message about duplicate champions.
-    - Use case ends.
+**Extensions:**
+* 1a. The command format is invalid (e.g., missing keywords or incorrect syntax).
+  * 1a1. SummonersBook shows an error message explaining the correct command format.  
+    <br>
+    Use case ends.
+* 2a. No persons match any of the given keywords.
+  * 2a1. SummonersBook shows “No persons found.”  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Ungroup teams
+**<u>Use case: UC5 - Auto-group persons (create teams)</u>**
 
-**MSS**
+**MSS:**
+1. User requests to automatically group persons into balanced teams.
+2. SummonersBook creates balanced teams based on rank, role, and champion pool.
+3. SummonersBook displays the newly formed teams.  
+   <br>
+   Use case ends.
 
+**Extensions:**
+* 2a. There are not enough persons to form a complete team.
+  * 2a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
+
+---
+
+**<u>Use case: UC6 - Manually create a team</u>**
+
+**MSS:**
+1. User requests to create a team by specifying five person indices.
+2. SummonersBook creates the team with the specified persons.
+3. SummonersBook confirms that the team has been created.  
+   <br>
+   Use case ends.
+
+**Extensions:**
+* 1a. Fewer or more than five indices are provided.
+  * 1a1. SummonersBook shows an error message indicating exactly five indices are required.  
+    <br>
+    Use case ends.
+* 1b. Duplicate indices are provided.
+  * 1b1. SummonersBook shows an error message about duplicate indices.  
+    <br>
+    Use case ends.
+* 1c. One or more indices are invalid (out of range).
+  * 1c1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
+* 2a. One or more persons are already in another team.
+  * 2a1. SummonersBook shows an error message indicating which person is already assigned.  
+    <br>
+    Use case ends.
+* 2b. The selected persons have duplicate roles or champions.
+  * 2b1. SummonersBook shows an error message specifying the duplication type.  
+    <br>
+    Use case ends.
+
+---
+
+**<u>Use case: UC7 - Ungroup teams</u>**
+
+**MSS:**
 1. User requests to ungroup either a specific team or all teams.
 2. SummonersBook disbands the requested team(s).
-3. SummonersBook confirms that the team(s) have been ungrouped.
+3. SummonersBook confirms that the team(s) have been ungrouped.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 1a. The given index is invalid.
-    - 1a1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 1a. The given index is invalid.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: View a team
+**<u>Use case: UC8 - View a team</u>**
 
-**MSS**
-
+**MSS:**
 1. User requests to view a team by specifying its index.
-2. SummonersBook displays the people in the team.
+2. SummonersBook displays the team’s members and detailed statistics in a popup window.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 1a. The given index is invalid.
-    - 1a1. SummonersBook shows an error message.
-    - Use case ends.
-
----
-
-### Use case: Filter people
-
-**MSS**
-
-1. User requests to filter the list of people based on their role, rank, champion, average score.
-2. SummonersBook displays the people that match the criteria.
-
-**Extension**
-
-- 1a. No flags are given (no role, rank, champion, score)
-  - 1a1. SummonersBook shows an error message.
-  - Use case ends.
-- 1b. Flags are given but no values are given
-  - 1b1. Show the full list of people.
-  - Use case ends
-- 1c. Invalid value for role or rank or champion or score
-  - 1c1. SummonersBook shows an error message.
-  - Use case ends.
+**Extensions:**
+* 1a. The given index is invalid.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Add performance values
+**<u>Use case: UC9 - Filter persons</u>**
 
-**MSS**
+**MSS:**
+1. User requests to filter the list of persons based on one or more criteria such as role, rank, champion, or average score.
+2. SummonersBook displays the persons that match the criteria.  
+   <br>
+   Use case ends.
 
-1. User requests to list people.
-2. SummonersBook shows a list of people.
-3. User requests to add a set of performance values (cpm, gd15, kda) to a specific person's stats by index.
-4. SummonersBook update the person's stats.
-
-**Extension**
-
-
-- 3a. The given index is invalid.
-    - 3a1. SummonersBook shows an error message.
-    - Use case ends.
-- 3b. Not all flags are given
-    - 3b1. SummonersBook shows an error message.
-    - Use case ends
-- 3b. All flags are given but no enough values are given
-    - 3b1. SummonersBook shows an error message.
-    - Use case ends
-- 3c. Invalid value for cpm or gd15 or kda
-    - 1c1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 1a. No flags are provided.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
+* 1b. Flags are provided but no values are given.
+  * 1b1. SummonersBook shows the full list of persons.  
+    <br>
+    Use case ends.
+* 1c. Invalid value for any flag (role, rank, champion, or score).
+  * 1c1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Delete the latest performance values
+**<u>Use case: UC10 - Add performance values</u>**
 
-**MSS**
+**MSS:**
+1. User requests to add performance values (CPM, GD15, KDA) to a person identified by index.
+2. SummonersBook updates the person’s statistics accordingly.
+3. SummonersBook confirms that the values have been recorded.  
+   <br>
+   Use case ends.
 
-1. User requests to list people.
-2. SummonersBook shows a list of people.
-3. User requests to delete the latest set of performance values (cpm, gd15, kda) to a specific person's stats by index.
-4. SummonersBook update the person's stats.
-
-**Extension**
-
-- 3a. The given index is invalid.
-    - 3a1. SummonersBook shows an error message.
-    - Use case ends.
-
----
-
-### Use case: View team details
-
-**MSS**
-
-1. User requests to view a team by specifying its index.
-2. SummonersBook displays the team's detailed information in a popup window.
-
-**Extensions**
-
-- 1a. The given index is invalid.
-    - 1a1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 1a. The given index is invalid.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
+* 1b. Not all flags or values are provided.
+  * 1b1. SummonersBook shows an error message explaining missing inputs.  
+    <br>
+    Use case ends.
+* 1c. Invalid value for CPM, GD15, or KDA.
+  * 1c1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Record a team win
+**<u>Use case: UC11 - Delete latest performance values</u>**
 
-**MSS**
+**MSS:**
+1. User requests to delete the latest set of performance values for a person by specifying the index.
+2. SummonersBook updates the person’s stats accordingly.
+3. SummonersBook confirms that the latest performance values have been removed.  
+   <br>
+   Use case ends.
 
-1. User requests to record a win for a team by specifying the team index.
+**Extensions:**
+* 1a. The given index is invalid.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
+
+---
+
+**<u>Use case: UC12 - Record a team win</u>**
+
+**MSS:**
+1. User requests to record a win for a team by specifying its index.
 2. SummonersBook increments the win count for the team and all its members.
-3. SummonersBook confirms the updated win/loss record.
+3. SummonersBook confirms the updated win/loss record.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 1a. The given index is invalid.
-    - 1a1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 1a. The given index is invalid.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Record a team loss
+**<u>Use case: UC13 - Record a team loss</u>**
 
-**MSS**
-
-1. User requests to record a loss for a team by specifying the team index.
+**MSS:**
+1. User requests to record a loss for a team by specifying its index.
 2. SummonersBook increments the loss count for the team and all its members.
-3. SummonersBook confirms the updated win/loss record.
+3. SummonersBook confirms the updated win/loss record.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 1a. The given index is invalid.
-    - 1a1. SummonersBook shows an error message.
-    - Use case ends.
+**Extensions:**
+* 1a. The given index is invalid.
+  * 1a1. SummonersBook shows an error message.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Import players from CSV
+**<u>Use case: UC14 - Import persons from CSV</u>**
 
-**MSS**
-
-1. User requests to import players from a CSV file by providing a file path.
+**MSS:**
+1. User requests to import persons from a CSV file by providing a file path.
 2. SummonersBook reads the CSV file and validates each row.
-3. SummonersBook adds valid players to the system.
-4. SummonersBook displays a summary showing imported count, duplicates skipped, and invalid rows.
+3. SummonersBook adds valid persons to the system.
+4. SummonersBook displays a summary showing imported count, duplicates skipped, and invalid rows.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 1a. The file path is invalid or file does not exist.
-    - 1a1. SummonersBook shows "Failed to import: file not found" error.
-    - Use case ends.
-
-- 2a. The CSV file has invalid headers.
-    - 2a1. SummonersBook shows error about invalid CSV format.
-    - Use case ends.
-
-- 2b. Some rows contain invalid data.
-    - 2b1. SummonersBook imports valid rows and reports invalid rows with sample errors.
-    - Use case resumes at step 4.
-
-- 2c. Some rows are duplicates of existing players.
-    - 2c1. SummonersBook skips duplicate rows and reports the count.
-    - Use case resumes at step 4.
+**Extensions:**
+* 1a. The file path is invalid or the file does not exist.
+  * 1a1. SummonersBook shows *“Failed to import: file not found.”*  
+    <br>
+    Use case ends.
+* 2a. The CSV file has invalid headers.
+  * 2a1. SummonersBook shows an error about invalid CSV format.  
+    <br>
+    Use case ends.
+* 2b. The CSV file is empty.
+  * 2b1. SummonersBook shows an error message for empty file.  
+    <br>
+    Use case ends.
+* 2c. Some rows contain invalid data.
+  * 2c1. SummonersBook imports valid rows and reports invalid rows with sample errors.  
+    <br>
+    Use case resumes at Step 4.
+* 2d. Some rows are duplicates of existing persons.
+  * 2d1. SummonersBook skips duplicate rows and reports the count.  
+    <br>
+    Use case resumes at Step 4.
 
 ---
 
-### Use case: Export players or teams to CSV
+**<u>Use case: UC15 - Export persons or teams to CSV</u>**
 
-**MSS**
-
-1. User requests to export players or teams, optionally specifying a custom file path.
+**MSS:**
+1. User requests to export persons or teams, optionally specifying a custom file path.
 2. SummonersBook writes the data to a CSV file at the specified or default path.
-3. SummonersBook confirms the export location.
+3. SummonersBook confirms the export location.  
+   <br>
+   Use case ends.
 
-**Extensions**
-
-- 2a. The file path is invalid or cannot be written to.
-    - 2a1. SummonersBook shows "Failed to export" error with details.
-    - Use case ends.
+**Extensions:**
+* 1a. There are no persons or teams to export.
+  * 1a1. SummonersBook shows *“No data available to export.”*  
+    <br>
+    Use case ends.
+* 2a. The file path is invalid or cannot be written to.
+  * 2a1. SummonersBook shows *“Failed to export”* with details.  
+    <br>
+    Use case ends.
 
 ---
 
-### Use case: Help
+**<u>Use case: UC16 - Help</u>**
 
-**MSS**
-
+**MSS:**
 1. User requests help.
-2. SummonersBook displays a list of available commands and usage examples.
+2. SummonersBook displays a list of available commands and usage examples.  
+   <br>
+   Use case ends.
 
 ---
 
